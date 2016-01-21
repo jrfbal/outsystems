@@ -71,7 +71,8 @@
 
   },
   "variables": {
-    "location": "[resourceGroup().location]"
+    "location": "[resourceGroup().location]",
+    "apiver":  "2015-06-15"
 
   },
   "resources": [
@@ -79,7 +80,7 @@
       "name": "[concat(parameters('CONTName'), 'NIC')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[variables('location')]",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[variables('apiver')]",
       "tags": {
         "displayName": "[concat(parameters('CONTName'), 'NIC')]"
       },
@@ -99,7 +100,7 @@
     },
 
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[variables('apiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('CONTName'), 'NIC')]"
       ],

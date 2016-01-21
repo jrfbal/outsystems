@@ -85,12 +85,13 @@
     "lbID": "[resourceId('Microsoft.Network/loadBalancers', variables('lbName'))]",
     "AVsetName": "[concat('AVset-', parameters('FEName'))]",
     "frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontend')]",
-    "lbProbeID": "[concat(variables('lbID'),'/probes/tcpProbe')]"
+    "lbProbeID": "[concat(variables('lbID'),'/probes/tcpProbe')]",
+    "apiver": "2015-06-15"
   },
   "resources": [
 
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[variables('apiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat('publicip',toLower(parameters('FEName')), copyIndex(1))]",
       "location": "[resourceGroup().location]",
@@ -110,7 +111,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', concat('publicip',toLower(parameters('FEName')), copyIndex(1)))]"
       ],
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[variables('apiver')]",
       "tags": {
         "displayName": "[concat(parameters('FEName'), copyIndex(1), 'NIC')]"
       },
@@ -139,7 +140,7 @@
 
 
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[variables('apiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('FEName'), copyIndex(1), 'NIC')]"
       ],

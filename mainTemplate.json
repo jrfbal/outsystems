@@ -298,7 +298,7 @@
     }
   },
   "variables": {
-    "URIbase": "https://raw.githubusercontent.com/jrfbal/plgndh/master/",
+    "URIbase": "https://raw.githubusercontent.com/jrfbal/outsystems/master/",
     "VnetURI": "[concat(variables('URIbase'),'outvn', parameters('vnetNeworExisting'), '.json')]",
     "StorageURI": "[concat(variables('URIbase'),'outstr', parameters('StorageNewOrExisting'), '.json')]",
     "SQLStorageURI": "[concat(variables('URIbase'),'outstr', parameters('SQLStorageNewOrExisting'), '.json')]",
@@ -363,7 +363,7 @@
     {
       "name": "deployStorage",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "[variables('templateAPIVersion')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -384,7 +384,7 @@
     {
       "name": "createDCS",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "[variables('templateAPIVersion')]",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'deployStorage')]"
       ],
@@ -437,7 +437,7 @@
     {
       "name": "createFE",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "[variables('templateAPIVersion')]",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'deployStorage')]"
       ],
@@ -492,7 +492,7 @@
     {
       "name": "SQLdeployStorage",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "[variables('templateAPIVersion')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -515,7 +515,7 @@
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', 'deployStorage')]"
       ],
-      "apiVersion": "2015-01-01",
+      "apiVersion": "[variables('templateAPIVersion')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
