@@ -305,14 +305,13 @@
     "DCSURI": "[concat(variables('URIbase'),'out', parameters('CreateDCSchoosebox'), '.json')]",
     "FEURI": "[concat(variables('URIbase'),'outFE', parameters('CreateLBchoosebox'), '.json')]",
     "SQLURI": "[concat(variables('URIbase'),'out', parameters('CreateSQLchoosebox'), '.json')]",
-    "FEImagePublisher": "MicrosoftWindowsServer",
-    "FEImageOffer": "WindowsServer",
+    "FEImagePublisher": "outsystems",
+    "FEImageOffer": "outsystems-baseline",
     "SQLImagePublisher": "MicrosoftSQLServer",
     "ImagePublisher": "MicrosoftWindowsServer",
-    "ImageOffer": "WindowsServer",
     "FEStorageAccountContainerName": "vhds",
     "templateAPIVersion": "2015-01-01",
-    "FEWindowsOSVersion": "2012-R2-Datacenter",
+    "FEWindowsOSVersion": "baseline",
     "SQLImageOffer": "SQL2014-WS2012R2"
 
   },
