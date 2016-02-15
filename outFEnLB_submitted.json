@@ -146,11 +146,6 @@
       ],
       "location": "[variables('location')]",
       "name": "[concat(parameters('FEName'), copyIndex(1))]",
-      "plan": {
-        "name": "[parameters('FEWindowsOSVersion')]",
-        "publisher": "[parameters('FEImagePublisher')]",
-        "product": "[parameters('FEImageOffer')]"
-      },
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('FEVmSize')]"
