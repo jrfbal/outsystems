@@ -85,7 +85,7 @@
     "lbID": "[resourceId('Microsoft.Network/loadBalancers', variables('lbName'))]",
     "AVsetName": "[concat('AVset-', parameters('FEName'))]",
     "frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontend')]",
-    "lbProbeID": "[concat(variables('lbID'),'/probes/tcpProbe')]"
+    "lbProbeID": "[concat(variables('lbID'),'/probes/tcpProbe')]",
     "apiver": "2015-06-15"
   },
   "resources": [
