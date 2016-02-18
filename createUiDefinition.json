@@ -435,7 +435,7 @@
       ],
       "outputs": {
         "AdminUserName": "[steps('FESetup').WFEadminUsername]",
-        "AdminPassword": "[steps('FESetup').WFEadminPassword]",
+        "AdminPassword": "[steps('FESetup').WFEadminPassword.password]",
         "FEName": "[steps('FESetup').FENAME]",
         "FEVmSize": "[steps('FESetup').FEVmSize]",
         "count": "[steps('FESetup').FEVmCount]",
