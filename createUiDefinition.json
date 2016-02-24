@@ -28,7 +28,7 @@
               },
               "defaultValue": {
                 "name": "OutSystems_VN",
-                "addressPrefixSize": "10.0.0.0/16"
+                "addressPrefixSize": "/16"
               },
               "constraints": {
                 "minAddressPrefixSize": "/29"
@@ -38,7 +38,7 @@
                   "label": "Front-End subnet",
                   "defaultValue": {
                     "name": "FEsubnet",
-                    "addressPrefixSize": "10.0.0.0/24"
+                    "addressPrefixSize": "/24"
                   },
                   "constraints": {
                     "minAddressPrefixSize": "/29",
