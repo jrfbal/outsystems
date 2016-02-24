@@ -456,7 +456,7 @@
         "StorageACCType": "[steps('FESetup').storageAccount2.type]",
         "CreateLBchoosebox": "[steps('FESetup').deployLB]",
         "dnsNameforLBIP": "[steps('FESetup').publicDNS.domainNameLabel]",
-        "CreateDCSchoosebox": "[steps('FESetup').deployDCS]",
+        "CreateDCSchoosebox": "[steps('FESetup').deployCONT]",
         "CreateSQLchoosebox": "[steps('SQLSetup').deploySQL]",
         "SQLWindowsOSVersion": "[steps('SQLSetup').SQL_SKU]",
         "SQLStorageNewOrExisting": "[steps('SQLSetup').storageAccount.newOrExisting]",
