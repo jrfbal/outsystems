@@ -210,8 +210,8 @@
               "label": "Front-End Virtual machine size",
               "toolTip": "The size of the Front-End VMs.",
               "recommendedSizes": [
+			    "Standard_D2",
                 "Standard_DS2",
-                "Standard_D1",
                 "Standard_DS3"
               ],
               "constraints": {
@@ -280,7 +280,7 @@
               "label": "Deployment Controller Virtual Machine size",
               "toolTip": "The size of the virtual machine for the Deployment Controller.",
               "recommendedSizes": [
-                "Standard_D1",
+                "Standard_D2",
                 "Standard_DS2",
                 "Standard_DS3"
               ],
@@ -362,7 +362,7 @@
               "label": "Virtual machine size",
               "toolTip": "The size of the virtual machine for the SQL server.",
               "recommendedSizes": [
-                "Standard_D1",
+                "Standard_D2",
                 "Standard_DS2",
                 "Standard_DS3"
               ],
