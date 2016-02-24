@@ -41,7 +41,7 @@
                     "addressPrefixSize": "10.0.0.0/24"
                   },
                   "constraints": {
-                    "minAddressPrefixSize": "10.0.1.0/29",
+                    "minAddressPrefixSize": "/29",
                     "minAddressCount": 2,
                     "requireContiguousAddresses": true
                   }
@@ -50,7 +50,7 @@
                   "label": "Back-End subnet",
                   "defaultValue": {
                     "name": "BEsubnet",
-                    "addressPrefixSize": "/24"
+                    "addressPrefixSize": "10.0.1.0/24"
                   },
                   "constraints": {
                     "minAddressPrefixSize": "/29",
