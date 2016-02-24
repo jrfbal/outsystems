@@ -445,7 +445,7 @@
         "SQLVmSize": "[steps('SQLSetup').SQLVmSize]",
         "virtualNetworkName": "[steps('VNETSetup').vnetSpec.name]",
         "vnetNewOrExisting": "[steps('VNETSetup').vnetSpec.newOrExisting]",
-        "virtualNetworkExistingRGName": "[steps('VNETSetup').vnetSpec.name]",
+        "virtualNetworkExistingRGName": "[steps('VNETSetup').vnetSpec.resourceGroup]",
         "vnetAddressPrefix": "[steps('VNETSetup').vnetSpec.addressPrefix]",
         "FESubnetName": "[steps('VNETSetup').vnetSpec.subnets.subnet1.name]",
         "FESubnetAddressPrefix": "[steps('VNETSetup').vnetSpec.subnets.subnet1.addressPrefix]",
