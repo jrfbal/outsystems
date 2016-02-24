@@ -446,7 +446,7 @@
         "virtualNetworkName": "[steps('VNETSetup').vnetSpec.name]",
         "vnetNewOrExisting": "[steps('VNETSetup').vnetSpec.newOrExisting]",
         "virtualNetworkExistingRGName": "[steps('VNETSetup').vnetSpec.name]",
-        "vnetAddressPrefix": "[steps('VNETSetup').vnetSpec.addressPrefixSize]",
+        "vnetAddressPrefix": "[steps('VNETSetup').vnetSpec.addressPrefix]",
         "FESubnetName": "[steps('VNETSetup').vnetSpec.subnets.subnet1.name]",
         "FESubnetAddressPrefix": "[steps('VNETSetup').vnetSpec.subnets.subnet1.addressPrefix]",
         "BESubnetName": "[steps('VNETSetup').vnetSpec.subnets.subnet2.name]",
