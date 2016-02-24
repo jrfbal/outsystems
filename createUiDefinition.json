@@ -50,7 +50,7 @@
                   "label": "Back-End subnet",
                   "defaultValue": {
                     "name": "BEsubnet",
-                    "addressPrefixSize": "10.0.1.0/24"
+                    "addressPrefixSize": "/24"
                   },
                   "constraints": {
                     "minAddressPrefixSize": "/29",
