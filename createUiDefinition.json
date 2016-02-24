@@ -253,11 +253,11 @@
                 "allowedValues": [
                   {
                     "label": "Yes",
-                    "value": "yCONT"
+                    "value": "yDCS"
                   },
                   {
                     "label": "No",
-                    "value": "nCONT"
+                    "value": "nDCS"
                   }
                 ]
               }
