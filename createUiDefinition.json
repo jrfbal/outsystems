@@ -99,7 +99,6 @@
               "type": "Microsoft.Storage.StorageAccountSelector",
               "label": "Front-End Storage account",
               "defaultValue": {
-                "name": "festorage1",
                 "type": "Standard_LRS",
                 "recommendedSizes": [
                   "Standard_LRS",
