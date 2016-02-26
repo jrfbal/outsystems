@@ -209,15 +209,15 @@
               "label": "Front-End Virtual machine size",
               "toolTip": "The size of the Front-End VMs.",
               "recommendedSizes": [
-                "Standard_D2_V2",
-                "Standard_D3_V2"
+                "Standard_D2_v2",
+                "Standard_D3_v2"
               ],
               "constraints": {
                 "required": true,
                 "allowedSizes": [
-                  "Standard_D2_V2",
-                  "Standard_D3_V2",
-                  "Standard_D4_V2",
+                  "Standard_D2_v2",
+                  "Standard_D3_v2",
+                  "Standard_D4_v2",
                   "Standard_D1",
                   "Standard_D2",
                   "Standard_DS2",
@@ -288,9 +288,9 @@
                 "allowedSizes": [
                   "Standard_A2",
                   "Standard_A3",
-                  "Standard_D2_V2",
-                  "Standard_D3_V2",
-                  "Standard_D4_V2",
+                  "Standard_D2_v2",
+                  "Standard_D3_v2",
+                  "Standard_D4_v2",
                   "Standard_D1",
                   "Standard_D2",
                   "Standard_DS2",
@@ -367,15 +367,15 @@
               "label": "Virtual machine size",
               "toolTip": "The size of the virtual machine for the SQL server.",
               "recommendedSizes": [
-                "Standard_D1_V2",
-                "Standard_D2_V2",
-                "Standard_D3_V2"
+                "Standard_D1_v2",
+                "Standard_D2_v2",
+                "Standard_D3_v2"
               ],
               "constraints": {
                 "allowedSizes": [
-                  "Standard_D1_V2",
-                  "Standard_D2_V2",
-                  "Standard_D3_V2",
+                  "Standard_D1_v2",
+                  "Standard_D2_v2",
+                  "Standard_D3_v2",
                   "Standard_D1",
                   "Standard_D2",
                   "Standard_DS2",

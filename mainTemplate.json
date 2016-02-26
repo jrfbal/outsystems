@@ -168,11 +168,11 @@
     },
     "FEVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D2_V2",
+      "defaultValue": "Standard_D2_v2",
       "allowedValues": [
-        "Standard_D2_V2",
-        "Standard_D3_V2",
-        "Standard_D4_V2",
+        "Standard_D2_v2",
+        "Standard_D3_v2",
+        "Standard_D4_v2",
         "Standard_D1",
         "Standard_D2",
         "Standard_DS2",
@@ -227,9 +227,9 @@
       "allowedValues": [
         "Standard_A2",
         "Standard_A3",
-        "Standard_D2_V2",
-        "Standard_D3_V2",
-        "Standard_D4_V2",
+        "Standard_D2_v2",
+        "Standard_D3_v2",
+        "Standard_D4_v2",
         "Standard_D1",
         "Standard_D2",
         "Standard_DS2",
@@ -272,11 +272,11 @@
 
     "SQLVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D1_V2",
+      "defaultValue": "Standard_D1_v2",
       "allowedValues": [
-        "Standard_D1_V2",
-        "Standard_D2_V2",
-        "Standard_D3_V2",
+        "Standard_D1_v2",
+        "Standard_D2_v2",
+        "Standard_D3_v2",
         "Standard_D1",
         "Standard_D2",
         "Standard_DS2",
