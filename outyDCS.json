@@ -77,9 +77,25 @@
   },
   "resources": [
     {
+      "apiVersion": "[variables('apiver')]",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat('dcspublicip',toLower(parameters('CONTName')))]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    },
+	
+	
+	
+	
+	{
       "name": "[concat(parameters('CONTName'), 'NIC')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[variables('location')]",
+	  "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses/', concat('dcspublicip',toLower(parameters('CONTName'))))]"
+      ],
       "apiVersion": "[variables('apiver')]",
       "tags": {
         "displayName": "[concat(parameters('CONTName'), 'NIC')]"
@@ -92,6 +108,9 @@
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
                 "id": "[parameters('FESubnetRef')]"
+              },
+			"publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('dcspublicip',toLower(parameters('CONTName'))))]"
               }
             }
           }

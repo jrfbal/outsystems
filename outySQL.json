@@ -69,10 +69,24 @@
     "SQLImagePublisher": "MicrosoftSQLServer"
   },
   "resources": [
+
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat('sqlpublicip',toLower(parameters('SQLName')))]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    },
+	
     {
       "name": "[concat(parameters('SQLName'), 'NIC')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[resourceGroup().location]",
+	  "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses/', concat('sqlpublicip',toLower(parameters('SQLName'))))]"
+      ],
       "apiVersion": "2015-06-15",
       "tags": {
         "displayName": "[concat(parameters('SQLName'), 'NIC')]"
@@ -85,6 +99,9 @@
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
                 "id": "[parameters('SubnetRef')]"
+              },
+			"publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('sqlpublicip',toLower(parameters('SQLName'))))]"
               }
             }
           }
