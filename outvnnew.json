@@ -169,7 +169,20 @@
               "direction": "Inbound"
             }
           },
-
+          {
+            "name": "rdp_rule",
+            "properties": {
+              "description": "Allow RDP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          },
           {
             "name": "Block_FE",
             "properties": {
@@ -193,7 +206,7 @@
               "destinationPortRange": "*",
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "Internet",
-              "access": "Deny",
+              "access": "Allow",
               "priority": 200,
               "direction": "Outbound"
             }
