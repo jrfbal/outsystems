@@ -48,11 +48,6 @@
     "SQLVmSize": {
       "type": "string",
       "defaultValue": "Standard_D1",
-      "allowedValues": [
-        "Standard_A0",
-        "Standard_A1",
-        "Standard_D1"
-      ],
       "metadata": {
         "description": "VM Size SQL"
       }
