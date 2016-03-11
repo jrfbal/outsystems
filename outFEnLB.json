@@ -78,6 +78,10 @@
       "type": "string",
       "defaultValue": "2015-11-01"
     },
+    "NETapiver": {
+      "type": "string",
+      "defaultValue": "2015-06-15"
+    },
     "location": {
       "type": "string"
     }
@@ -97,7 +101,7 @@
   "resources": [
 
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat('publicip',toLower(parameters('FEName')), copyIndex(1))]",
       "location": "[parameters('location')]",
@@ -117,7 +121,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', concat('publicip',toLower(parameters('FEName')), copyIndex(1)))]"
       ],
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "tags": {
         "displayName": "[concat(parameters('FEName'), copyIndex(1), 'NIC')]"
       },
@@ -146,7 +150,7 @@
 
 
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('FEName'), copyIndex(1), 'NIC')]"
       ],

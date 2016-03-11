@@ -78,6 +78,10 @@
       "type": "string",
       "defaultValue": "2015-11-01"
     },
+    "NETapiver": {
+      "type": "string",
+      "defaultValue": "2015-06-15"
+    },
     "location": {
       "type": "string"
     }
@@ -100,7 +104,7 @@
       "name": "[concat(parameters('FEName'), copyIndex(1), 'NIC')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/loadBalancers/', variables('lbName'))]",
         "[concat('Microsoft.Network/loadBalancers/', variables('lbName'), '/inboundNatRules/', 'RDP-VM', copyIndex(1))]"
@@ -152,7 +156,7 @@
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPName')]",
-      "location": "[parameters('apiver')]",
+      "location": "[parameters('NETapiver')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
@@ -161,7 +165,7 @@
       }
     },
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "name": "[variables('lbName')]",
       "type": "Microsoft.Network/loadBalancers",
       "location": "[parameters('location')]",
@@ -220,7 +224,7 @@
     },
 
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "type": "Microsoft.Network/loadBalancers/inboundNatRules",
       "name": "[concat(variables('lbName'), '/', 'RDP-VM', copyIndex(1))]",
       "location": "[parameters('location')]",

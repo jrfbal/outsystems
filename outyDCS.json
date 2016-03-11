@@ -71,6 +71,10 @@
       "type": "string",
       "defaultValue": "2015-11-01"
     },
+    "NETapiver": {
+      "type": "string",
+      "defaultValue": "2015-06-15"
+    },
     "location": {
       "type": "string"
     }
@@ -82,7 +86,7 @@
   },
   "resources": [
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat('dcspublicip',toLower(parameters('CONTName')))]",
       "location": "[parameters('location')]",
@@ -101,7 +105,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', concat('dcspublicip',toLower(parameters('CONTName'))))]"
       ],
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "tags": {
         "displayName": "[concat(parameters('CONTName'), 'NIC')]"
       },
@@ -124,7 +128,7 @@
     },
 
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('CONTName'), 'NIC')]"
       ],

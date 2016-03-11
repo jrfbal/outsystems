@@ -54,6 +54,10 @@
       "type": "string",
       "defaultValue": "2015-11-01"
     },
+    "NETapiver": {
+      "type": "string",
+      "defaultValue": "2015-06-15"
+    },
     "location": {
       "type": "string"
     }
@@ -65,7 +69,7 @@
   "resources": [
 
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat('sqlpublicip',toLower(parameters('SQLName')))]",
       "location": "[parameters('location')]",
@@ -81,7 +85,7 @@
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', concat('sqlpublicip',toLower(parameters('SQLName'))))]"
       ],
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "tags": {
         "displayName": "[concat(parameters('SQLName'), 'NIC')]"
       },
@@ -103,7 +107,7 @@
       }
     },
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('SQLName'), 'NIC')]"
       ],
