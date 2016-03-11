@@ -246,7 +246,7 @@
       }
     },
     {
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('FEName'), copyIndex(1), 'NIC')]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('AVsetName'))]"

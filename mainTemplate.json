@@ -251,8 +251,7 @@
     "ImagePublisher": "MicrosoftWindowsServer",
     "FEStorageAccountContainerName": "vhds",
     "templateAPIVersion": "2015-11-01",
-    "VNAPIVersion": "2015-06-15",
-    "STRAPIVersion": "2015-06-15",
+    "APIVersion": "2015-06-15",
     "FEWindowsOSVersion": "baseline",
     "SQLImageOffer": "SQL2014-WS2012R2"
 
@@ -297,7 +296,7 @@
             "value": "[parameters('virtualNetworkName')]"
           },
           "apiver": {
-            "value": "[variables('VNAPIVersion')]"
+            "value": "[variables('APIVersion')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -325,7 +324,7 @@
             "value": "[parameters('StorageACCName')]"
           },
           "apiver": {
-            "value": "[variables('STRAPIVersion')]"
+            "value": "[variables('APIVersion')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -385,7 +384,7 @@
             "value": "[variables('templateAPIVersion')]"
           },
           "NETapiver": {
-            "value": "[variables('VNAPIVersion')]"
+            "value": "[variables('APIVersion')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -450,7 +449,7 @@
             "value": "[variables('templateAPIVersion')]"
           },
           "NETapiver": {
-            "value": "[variables('VNAPIVersion')]"
+            "value": "[variables('APIVersion')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -478,7 +477,7 @@
             "value": "[parameters('SQLStorageACCName')]"
           },
           "apiver": {
-            "value": "[variables('STRAPIVersion')]"
+            "value": "[variables('APIVersion')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -531,7 +530,7 @@
             "value": "[variables('templateAPIVersion')]"
           },
           "NETapiver": {
-            "value": "[variables('VNAPIVersion')]"
+            "value": "[variables('APIVersion')]"
           },
           "location": {
             "value": "[parameters('location')]"

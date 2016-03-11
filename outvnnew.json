@@ -68,7 +68,7 @@
 
     "apiver": {
       "type": "string",
-      "defaultValue": "2015-11-01"
+      "defaultValue": "2015-06-15"
     },
     "location": {
       "type": "string"

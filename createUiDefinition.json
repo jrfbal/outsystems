@@ -38,7 +38,7 @@
                   "label": "Front-End subnet",
                   "defaultValue": {
                     "name": "FEsubnet",
-                    "addressPrefixSize": "/27"
+                    "addressPrefixSize": "/25"
                   },
                   "constraints": {
                     "minAddressPrefixSize": "/29",
@@ -50,7 +50,7 @@
                   "label": "Back-End subnet",
                   "defaultValue": {
                     "name": "BEsubnet",
-                    "addressPrefixSize": "/27"
+                    "addressPrefixSize": "/25"
                   },
                   "constraints": {
                     "minAddressPrefixSize": "/29",
