@@ -146,7 +146,7 @@
       "name": "[variables('AVsetName')]",
       "type": "Microsoft.Compute/availabilitySets",
       "location": "[parameters('location')]",
-      "apiVersion": "[parameters('apiver')]",
+      "apiVersion": "[parameters('NETapiver')]",
       "dependsOn": [ ],
       "tags": {
         "displayName": "[variables('AVsetName')]"
