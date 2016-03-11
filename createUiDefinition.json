@@ -100,7 +100,7 @@
               "label": "Front-End Storage account",
               "defaultValue": {
                 "type": "Standard_LRS",
-                "allowedSizes": [
+                "allowedTypes": [
                   "Standard_LRS",
                   "Standard_GRS",
                   "Standard_RAGRS"
@@ -413,7 +413,7 @@
               "label": "SQL Storage account",
               "defaultValue": {
                 "type": "Standard_LRS",
-                "allowedSizes": [
+                "allowedTypes": [
                   "Standard_LRS",
                   "Standard_GRS",
                   "Standard_RAGRS"
