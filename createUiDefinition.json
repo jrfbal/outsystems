@@ -473,7 +473,8 @@
         "SQLWindowsOSVersion": "[steps('SQLSetup').SQL_SKU]",
         "SQLStorageNewOrExisting": "[steps('SQLSetup').storageAccount.newOrExisting]",
         "SQLStorageACCName": "[steps('SQLSetup').storageAccount.name]",
-        "SQLStorageACCType": "[steps('SQLSetup').storageAccount.type]"
+        "SQLStorageACCType": "[steps('SQLSetup').storageAccount.type]",
+        "location": "[location()]"
 
       }
     }
