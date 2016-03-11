@@ -11,12 +11,7 @@
     },
     "SQLWindowsOSVersion": {
       "type": "string",
-      "defaultValue": "Standard",
-      "allowedValues": [
-        "Enterprise",
-        "Standard",
-        "Web"
-      ]
+      "defaultValue": "Standard"
     },
     "SQLName": {
       "type": "string",
@@ -57,6 +52,13 @@
       "metadata": {
         "description": "Storage Container Name"
       }
+    },
+    "apiver": {
+      "type": "string",
+      "defaultValue": "2015-11-01"
+    },
+    "location": {
+      "type": "string"
     }
   },
 

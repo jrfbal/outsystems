@@ -64,6 +64,13 @@
       "metadata": {
         "description": "Virtual network name"
       }
+    },
+    "apiver": {
+      "type": "string",
+      "defaultValue": "2015-11-01"
+    },
+    "location": {
+      "type": "string"
     }
   },
   "variables": {

@@ -66,37 +66,42 @@
       "metadata": {
         "description": "Subnet Reference"
       }
+    },
+    "apiver": {
+      "type": "string",
+      "defaultValue": "2015-11-01"
+    },
+    "location": {
+      "type": "string"
     }
 
 
   },
   "variables": {
-    "location": "[resourceGroup().location]",
-    "apiver":  "2015-06-15"
 
   },
   "resources": [
     {
-      "apiVersion": "[variables('apiver')]",
+      "apiVersion": "[parameters('apiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat('dcspublicip',toLower(parameters('CONTName')))]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic"
       }
     },
-	
-	
-	
-	
-	{
+
+
+
+
+    {
       "name": "[concat(parameters('CONTName'), 'NIC')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[variables('location')]",
-	  "dependsOn": [
+      "location": "[parameters('location')]",
+      "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', concat('dcspublicip',toLower(parameters('CONTName'))))]"
       ],
-      "apiVersion": "[variables('apiver')]",
+      "apiVersion": "[parameters('apiver')]",
       "tags": {
         "displayName": "[concat(parameters('CONTName'), 'NIC')]"
       },
@@ -109,7 +114,7 @@
               "subnet": {
                 "id": "[parameters('FESubnetRef')]"
               },
-			"publicIPAddress": {
+              "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('dcspublicip',toLower(parameters('CONTName'))))]"
               }
             }
@@ -119,11 +124,11 @@
     },
 
     {
-      "apiVersion": "[variables('apiver')]",
+      "apiVersion": "[parameters('apiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('CONTName'), 'NIC')]"
       ],
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "name": "[parameters('CONTName')]",
       "plan": {
         "name": "[parameters('FEWindowsOSVersion')]",

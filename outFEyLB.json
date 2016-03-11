@@ -73,27 +73,34 @@
       "metadata": {
         "description": "VM Size Controller"
       }
+    },
+    "apiver": {
+      "type": "string",
+      "defaultValue": "2015-11-01"
+    },
+    "location": {
+      "type": "string"
     }
 
   },
   "variables": {
 
-    "location": "[resourceGroup().location]",
+    
     "lbName": "[concat('LB', parameters('FEName'))]",
     "publicIPname": "[concat('PublicIP', variables('lbName'))]",
     "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPname'))]",
     "lbID": "[resourceId('Microsoft.Network/loadBalancers', variables('lbName'))]",
     "AVsetName": "[concat('AVset-', parameters('FEName'))]",
     "frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontend')]",
-    "lbProbeID": "[concat(variables('lbID'),'/probes/tcpProbe')]",
-    "apiver": "2015-06-15"
+    "lbProbeID": "[concat(variables('lbID'),'/probes/tcpProbe')]"
+   
   },
   "resources": [
     {
       "name": "[concat(parameters('FEName'), copyIndex(1), 'NIC')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[variables('location')]",
-      "apiVersion": "[variables('apiver')]",
+      "location": "[parameters('location')]",
+      "apiVersion": "[parameters('apiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/loadBalancers/', variables('lbName'))]",
         "[concat('Microsoft.Network/loadBalancers/', variables('lbName'), '/inboundNatRules/', 'RDP-VM', copyIndex(1))]"
@@ -134,8 +141,8 @@
     {
       "name": "[variables('AVsetName')]",
       "type": "Microsoft.Compute/availabilitySets",
-      "location": "[variables('location')]",
-      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "apiVersion": "[parameters('apiver')]",
       "dependsOn": [ ],
       "tags": {
         "displayName": "[variables('AVsetName')]"
@@ -145,7 +152,7 @@
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPName')]",
-      "location": "[variables('location')]",
+      "location": "[parameters('apiver')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
@@ -154,10 +161,10 @@
       }
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[parameters('apiver')]",
       "name": "[variables('lbName')]",
       "type": "Microsoft.Network/loadBalancers",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "dependsOn": [
         "[variables('publicIPAddressID')]"
       ],
@@ -213,10 +220,10 @@
     },
 
     {
-      "apiVersion": "[variables('apiver')]",
+      "apiVersion": "[parameters('apiver')]",
       "type": "Microsoft.Network/loadBalancers/inboundNatRules",
       "name": "[concat(variables('lbName'), '/', 'RDP-VM', copyIndex(1))]",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "copy": {
         "name": "lbNatLoop",
         "count": "[parameters('count')]"
@@ -235,12 +242,12 @@
       }
     },
     {
-      "apiVersion": "[variables('apiver')]",
+      "apiVersion": "[parameters('apiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('FEName'), copyIndex(1), 'NIC')]",
         "[concat('Microsoft.Compute/availabilitySets/', variables('AVsetName'))]"
       ],
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "name": "[concat(parameters('FEName'), copyIndex(1))]",
       "plan": {
         "name": "[parameters('FEWindowsOSVersion')]",

@@ -64,6 +64,14 @@
       "metadata": {
         "description": "Virtual network name"
       }
+    },
+
+    "apiver": {
+      "type": "string",
+      "defaultValue": "2015-11-01"
+    },
+    "location": {
+      "type": "string"
     }
   },
   "variables": {
@@ -71,16 +79,14 @@
     "BESubnetNameSG": "[concat(parameters('BESubnetName'), 'SG')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
     "FESubnet": "[concat(variables('vnetID'),'/subnets/',parameters('FESubnetName'))]",
-    "BESubnet": "[concat(variables('vnetID'),'/subnets/',parameters('BESubnetName'))]",
-    "location": "[resourceGroup().location]",
-    "apiver": "2015-06-15"
+    "BESubnet": "[concat(variables('vnetID'),'/subnets/',parameters('BESubnetName'))]"
   },
   "resources": [
     {
-      "apiVersion": "[variables('apiver')]",
+      "apiVersion": "[parameters('apiver')]",
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[variables('FESubnetNameSG')]",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "tags": {
         "displayName": "[variables('FESubnetNameSG')]"
       },
@@ -133,9 +139,9 @@
     },
     {
       "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "[variables('apiver')]",
+      "apiVersion": "[parameters('apiver')]",
       "name": "[variables('BESubnetNameSG')]",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "tags": {
         "displayName": "[variables('BESubnetNameSG')]"
       },
@@ -218,8 +224,8 @@
     {
       "name": "[parameters('virtualNetworkName')]",
       "type": "Microsoft.Network/virtualNetworks",
-      "location": "[variables('location')]",
-      "apiVersion": "[variables('apiver')]",
+      "location": "[parameters('location')]",
+      "apiVersion": "[parameters('apiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkSecurityGroups/', variables('FESubnetNameSG'))]",
         "[concat('Microsoft.Network/networkSecurityGroups/', variables('BESubnetNameSG'))]"

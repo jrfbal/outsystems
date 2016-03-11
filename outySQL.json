@@ -11,12 +11,7 @@
     },
     "SQLWindowsOSVersion": {
       "type": "string",
-      "defaultValue": "Standard",
-      "allowedValues": [
-        "Enterprise",
-        "Standard",
-        "Web"
-      ]
+      "defaultValue": "Standard"
     },
     "SQLName": {
       "type": "string",
@@ -28,10 +23,7 @@
     },
     "SQLImageOffer": {
       "type": "string",
-      "defaultValue": "SQL2014-WS2012R2",
-      "allowedValues": [
-        "SQL2014-WS2012R2"
-      ]
+      "defaultValue": "SQL2014-WS2012R2"
     },
     "SubnetRef": {
       "type": "string",
@@ -57,6 +49,13 @@
       "metadata": {
         "description": "Storage Container Name"
       }
+    },
+    "apiver": {
+      "type": "string",
+      "defaultValue": "2015-11-01"
+    },
+    "location": {
+      "type": "string"
     }
   },
 
@@ -66,23 +65,23 @@
   "resources": [
 
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[parameters('apiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat('sqlpublicip',toLower(parameters('SQLName')))]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic"
       }
     },
-	
+
     {
       "name": "[concat(parameters('SQLName'), 'NIC')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[resourceGroup().location]",
-	  "dependsOn": [
+      "location": "[parameters('location')]",
+      "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', concat('sqlpublicip',toLower(parameters('SQLName'))))]"
       ],
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[parameters('apiver')]",
       "tags": {
         "displayName": "[concat(parameters('SQLName'), 'NIC')]"
       },
@@ -95,7 +94,7 @@
               "subnet": {
                 "id": "[parameters('SubnetRef')]"
               },
-			"publicIPAddress": {
+              "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('sqlpublicip',toLower(parameters('SQLName'))))]"
               }
             }
@@ -104,11 +103,11 @@
       }
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[parameters('apiver')]",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', parameters('SQLName'), 'NIC')]"
       ],
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "name": "[parameters('SQLName')]",
       "properties": {
         "hardwareProfile": {

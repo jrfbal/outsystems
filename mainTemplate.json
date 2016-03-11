@@ -98,13 +98,7 @@
     },
     "StorageACCType": {
       "type": "string",
-      "defaultValue": "Standard_LRS",
-      "allowedValues": [
-        "Standard_LRS",
-        "Standard_ZRS",
-        "Standard_GRS",
-        "Standard_RAGRS"
-      ]
+      "defaultValue": "Standard_LRS"
     },
     "StorageACCName": {
       "type": "string",
@@ -125,14 +119,7 @@
     },
     "SQLStorageACCType": {
       "type": "string",
-      "defaultValue": "Standard_LRS",
-      "allowedValues": [
-        "Standard_LRS",
-        "Standard_ZRS",
-        "Standard_GRS",
-        "Standard_RAGRS",
-        "Premium_LRS"
-      ]
+      "defaultValue": "Standard_LRS"
     },
     "SQLStorageACCName": {
       "type": "string",
@@ -169,27 +156,6 @@
     "FEVmSize": {
       "type": "string",
       "defaultValue": "Standard_D2_v2",
-      "allowedValues": [
-        "Standard_D2_v2",
-        "Standard_D3_v2",
-        "Standard_D4_v2",
-        "Standard_D1",
-        "Standard_D2",
-        "Standard_DS2",
-        "Standard_D3",
-        "Standard_DS3",
-        "Standard_D4",
-        "Standard_DS4",
-        "Standard_D11",
-        "Standard_DS11",
-        "Standard_D12",
-        "Standard_DS12",
-        "Standard_D13",
-        "Standard_DS13",
-        "Standard_D14",
-        "Standard_DS14"
-
-      ],
       "metadata": {
         "description": "VM Size Controller"
       }
@@ -224,28 +190,6 @@
     "CONTVmSize": {
       "type": "string",
       "defaultValue": "Standard_A2",
-      "allowedValues": [
-        "Standard_A2",
-        "Standard_A3",
-        "Standard_D2_v2",
-        "Standard_D3_v2",
-        "Standard_D4_v2",
-        "Standard_D1",
-        "Standard_D2",
-        "Standard_DS2",
-        "Standard_D3",
-        "Standard_DS3",
-        "Standard_D4",
-        "Standard_DS4",
-        "Standard_D11",
-        "Standard_DS11",
-        "Standard_D12",
-        "Standard_DS12",
-        "Standard_D13",
-        "Standard_DS13",
-        "Standard_D14",
-        "Standard_DS14"
-      ],
       "metadata": {
         "description": "VM Size Controller"
       }
@@ -299,12 +243,18 @@
     },
     "SQLWindowsOSVersion": {
       "type": "string",
-      "defaultValue": "Enterprise",
-      "allowedValues": [
-        "Enterprise",
-        "Standard",
-        "Web"
-      ]
+      "defaultValue": "Enterprise"
+    },
+    "location": {
+      "type": "string"
+    },
+    "baseUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "The base URL for dependent assets",
+        "artifactsBaseUrl": ""
+      },
+      "defaultValue": "<URL to be used outside marketplace>"
     }
   },
   "variables": {
@@ -320,7 +270,7 @@
     "SQLImagePublisher": "MicrosoftSQLServer",
     "ImagePublisher": "MicrosoftWindowsServer",
     "FEStorageAccountContainerName": "vhds",
-    "templateAPIVersion": "2015-01-01",
+    "templateAPIVersion": "2015-11-01",
     "FEWindowsOSVersion": "baseline",
     "SQLImageOffer": "SQL2014-WS2012R2"
 
@@ -363,6 +313,12 @@
           },
           "virtualNetworkName": {
             "value": "[parameters('virtualNetworkName')]"
+          },
+          "apiver": {
+            "value": "[variables('templateAPIVersion')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
           }
 
         }
@@ -385,6 +341,12 @@
           },
           "StorageACCName": {
             "value": "[parameters('StorageACCName')]"
+          },
+          "apiver": {
+            "value": "[variables('templateAPIVersion')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
           }
         }
       }
@@ -436,6 +398,12 @@
           },
           "FESubnetRef": {
             "value": "[reference('deployVnet').outputs.FESubnetRef.value]"
+          },
+          "apiver": {
+            "value": "[variables('templateAPIVersion')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
           }
 
 
@@ -492,6 +460,12 @@
           },
           "dnsNameforLBIP": {
             "value": "[parameters('dnsNameforLBIP')]"
+          },
+          "apiver": {
+            "value": "[variables('templateAPIVersion')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
           }
 
 
@@ -514,6 +488,12 @@
           },
           "StorageACCName": {
             "value": "[parameters('SQLStorageACCName')]"
+          },
+          "apiver": {
+            "value": "[variables('templateAPIVersion')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
           }
         }
       }
@@ -558,6 +538,12 @@
           },
           "StorageAccountContainerName": {
             "value": "[variables('FEStorageAccountContainerName')]"
+          },
+          "apiver": {
+            "value": "[variables('templateAPIVersion')]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
           }
         }
       }
