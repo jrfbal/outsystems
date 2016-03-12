@@ -369,31 +369,19 @@
               "label": "Virtual machine size",
               "toolTip": "The size of the virtual machine for the SQL server.",
               "recommendedSizes": [
-                "Standard_D1_v2",
-                "Standard_D2_v2",
-                "Standard_D3_v2"
+                "Standard_DS1",
+                "Standard_DS2",
+                "Standard_DS3"
               ],
               "constraints": {
                 "allowedSizes": [
-                  "Standard_A2",
-                  "Standard_A3",
-                  "Standard_D2_v2",
-                  "Standard_D3_v2",
-                  "Standard_D4_v2",
-                  "Standard_D1",
-                  "Standard_D2",
+                  "Standard_DS1",
                   "Standard_DS2",
-                  "Standard_D3",
                   "Standard_DS3",
-                  "Standard_D4",
                   "Standard_DS4",
-                  "Standard_D11",
                   "Standard_DS11",
-                  "Standard_D12",
                   "Standard_DS12",
-                  "Standard_D13",
                   "Standard_DS13",
-                  "Standard_D14",
                   "Standard_DS14"
                 ]
               },
@@ -413,7 +401,6 @@
               "defaultValue": {
                 "type": "Standard_LRS",
                 "excludedTypes": [
-                  "Premium_LRS",
                   "Standard_ZRS"
                 ]
               }
