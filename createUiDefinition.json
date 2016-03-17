@@ -101,11 +101,12 @@
               "defaultValue": {
                 "type": "Standard_LRS"
                 },
+                "constraints": {
                 "excludedTypes": [
                   "Premium_LRS",
                   "Standard_ZRS"
                 ]
-              
+                }
             },
 
             {
@@ -404,10 +405,11 @@
                 "type": "Standard_LRS"
                   
               },
+              "constraints": {
                 "excludedTypes": [
                   "Standard_ZRS"
                 ]
-              
+              }
             },
 
             {
