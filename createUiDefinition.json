@@ -370,7 +370,6 @@
               "type": "Microsoft.Compute.SizeSelector",
               "label": "Virtual machine size",
               "toolTip": "The size of the virtual machine for the SQL server.",
-              "defaultValue": "Standard_DS2",
               "recommendedSizes": [
                 "Standard_DS1",
                 "Standard_DS2",
