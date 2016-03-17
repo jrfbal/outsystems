@@ -403,13 +403,12 @@
               "label": "SQL Storage account",
               "defaultValue": {
                 "type": "Standard_LRS"
-                  
-              },
-              "constraints": {
+                },
+                "constraints": {
                 "excludedTypes": [
                   "Standard_ZRS"
                 ]
-              }
+                }
             },
 
             {
