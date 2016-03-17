@@ -99,12 +99,13 @@
               "type": "Microsoft.Storage.StorageAccountSelector",
               "label": "Front-End Storage account",
               "defaultValue": {
-                "type": "Standard_LRS",
+                "type": "Standard_LRS"
+                },
                 "excludedTypes": [
                   "Premium_LRS",
                   "Standard_ZRS"
                 ]
-              }
+              
             },
 
             {
@@ -400,11 +401,13 @@
               "type": "Microsoft.Storage.StorageAccountSelector",
               "label": "SQL Storage account",
               "defaultValue": {
-                "type": "Standard_LRS",
+                "type": "Standard_LRS"
+                  
+              },
                 "excludedTypes": [
                   "Standard_ZRS"
                 ]
-              }
+              
             },
 
             {
