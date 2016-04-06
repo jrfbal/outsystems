@@ -147,7 +147,8 @@
                 "domainNameLabel": "DNS label for the public IP address. This option is only used if a LoadBalancer is selected."
               },
               "options": {
-                "hidepublicIpAddressName": true
+                "hidepublicIpAddressName": true,
+                "hideNone": true
               }
             },
 
@@ -223,6 +224,7 @@
                   "Standard_D3_v2",
                   "Standard_D4_v2",
                   "Standard_D1",
+                  "Standard_D1_v2",
                   "Standard_D2",
                   "Standard_DS2",
                   "Standard_D3",
@@ -296,6 +298,7 @@
                   "Standard_D3_v2",
                   "Standard_D4_v2",
                   "Standard_D1",
+                  "Standard_D1_v2",
                   "Standard_D2",
                   "Standard_DS2",
                   "Standard_D3",
