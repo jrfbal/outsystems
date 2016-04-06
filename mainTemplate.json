@@ -234,11 +234,11 @@
         "description": "The base URL for dependent assets",
         "artifactsBaseUrl": ""
       },
-      "defaultValue": "<URL to be used outside marketplace>"
+      "defaultValue": "https://raw.githubusercontent.com/jrfbal/outsystems/master/"
     }
   },
   "variables": {
-    "URIbase": "https://raw.githubusercontent.com/jrfbal/outsystems/master/",
+    "URIbase": "[parameters('baseUrl')]",
     "VnetURI": "[concat(variables('URIbase'),'outvn', parameters('vnetNeworExisting'), '.json')]",
     "StorageURI": "[concat(variables('URIbase'),'outstr', parameters('StorageNewOrExisting'), '.json')]",
     "SQLStorageURI": "[concat(variables('URIbase'),'outstr', parameters('CreateSQLchoosebox'), parameters('SQLStorageNewOrExisting'), '.json')]",
