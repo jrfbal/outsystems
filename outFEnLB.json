@@ -205,5 +205,9 @@
     }
   ],
   "outputs": {
+    "fqdn": {
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPname'))).dnsSettings.fqdn]",
+      "type": "string"
+    }
   }
 }
