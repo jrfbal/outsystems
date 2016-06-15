@@ -305,10 +305,5 @@
     }
   ],
     "outputs": {
-      "fqdn": {
-        "value": "[variables('publicIPAddressID').dnsSettings.fqdn]",
-        "type": "string"
-      }
-	
     }
 }
