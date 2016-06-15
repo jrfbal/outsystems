@@ -64,14 +64,16 @@
   },
 
   "variables": {
-    "SQLImagePublisher": "MicrosoftSQLServer"
+    "SQLImagePublisher": "MicrosoftSQLServer",
+    "publicIPname": "[concat('sqlpublicip',toLower(parameters('SQLName')))]",
+    "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPname'))]"
   },
   "resources": [
 
     {
       "apiVersion": "[parameters('NETapiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat('sqlpublicip',toLower(parameters('SQLName')))]",
+      "name": "variables('publicIPname')",
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic"
@@ -83,7 +85,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', concat('sqlpublicip',toLower(parameters('SQLName'))))]"
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPname'))]"
       ],
       "apiVersion": "[parameters('NETapiver')]",
       "tags": {
@@ -99,7 +101,7 @@
                 "id": "[parameters('SubnetRef')]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('sqlpublicip',toLower(parameters('SQLName'))))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPname'))]"
               }
             }
           }
@@ -154,6 +156,10 @@
 
 
   ],
-    "outputs": {
+  "outputs": {
+    "fqdn": {
+      "value": "[variables('publicIPAddressID').dnsSettings.fqdn]",
+      "type": "string"
     }
+  }
 }

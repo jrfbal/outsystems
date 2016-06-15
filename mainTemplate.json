@@ -10,17 +10,7 @@
     "AdminPassword": {
       "type": "securestring"
     },
-    "vnetNewOrExisting": {
-      "type": "string",
-      "defaultValue": "new",
-      "allowedValues": [
-        "new",
-        "existing"
-      ],
-      "metadata": {
-        "description": "Identifies whether to use new or existing Virtual Network"
-      }
-    },
+
     "virtualNetworkName": {
       "type": "string",
       "defaultValue": "OutSystems_VN",
@@ -28,16 +18,10 @@
         "description": "Virtual network name"
       }
     },
-    "virtualNetworkExistingRGName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "If using existing VNet, specifies the resource group for the existing VNet"
-      }
-    },
+
     "vnetAddressPrefix": {
       "type": "string",
-      "defaultValue": "10.0.0.0/24",
+      "defaultValue": "10.0.0.0/23",
       "metadata": {
         "description": "IP address for the virtual network"
       }
@@ -58,7 +42,7 @@
     },
     "FESubnetStartAddress": {
       "type": "string",
-      "defaultValue": "10.0.0.4",
+      "defaultValue": "10.0.0.0",
       "metadata": {
         "description": "Start IP address for the VMs in Front-End subnet"
       }
@@ -79,7 +63,7 @@
     },
     "BESubnetStartAddress": {
       "type": "string",
-      "defaultValue": "10.0.1.4",
+      "defaultValue": "10.0.0.32",
       "metadata": {
         "description": "Start IP address for the VMs in Back-End subnet"
       }
@@ -93,7 +77,7 @@
         "existing"
       ],
       "metadata": {
-        "description": "Identifies whether to use new or existing Virtual Network"
+        "description": "Identifies whether to use new or existing storage account"
       }
     },
     "StorageACCType": {
@@ -114,7 +98,7 @@
         "existing"
       ],
       "metadata": {
-        "description": "Identifies whether to use new or existing Virtual Network"
+        "description": "Identifies whether to use new or existing SQL storage account"
       }
     },
     "SQLStorageACCType": {
@@ -239,7 +223,6 @@
   },
   "variables": {
     "URIbase": "[concat(parameters('baseUrl'),'/')]",
-    "VnetURI": "[concat(variables('URIbase'),'outvn', parameters('vnetNeworExisting'), '.json')]",
     "StorageURI": "[concat(variables('URIbase'),'outstr', parameters('StorageNewOrExisting'), '.json')]",
     "SQLStorageURI": "[concat(variables('URIbase'),'outstr', parameters('CreateSQLchoosebox'), parameters('SQLStorageNewOrExisting'), '.json')]",
     "DCSURI": "[concat(variables('URIbase'),'out', parameters('CreateDCSchoosebox'), '.json')]",
@@ -253,56 +236,192 @@
     "templateAPIVersion": "2015-11-01",
     "APIVersion": "2015-06-15",
     "FEWindowsOSVersion": "baseline",
-    "SQLImageOffer": "SQL2014-WS2012R2"
-
+    "SQLImageOffer": "SQL2014-WS2012R2",
+    "FESubnetNameSG": "[concat(parameters('FESubnetName'), 'SG')]",
+    "BESubnetNameSG": "[concat(parameters('BESubnetName'), 'SG')]",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+    "FESubnet": "[concat(variables('vnetID'),'/subnets/',parameters('FESubnetName'))]",
+    "BESubnet": "[concat(variables('vnetID'),'/subnets/',parameters('BESubnetName'))]"
   },
   "resources": [
     {
-      "name": "deployVnet",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "[variables('templateAPIVersion')]",
+      "apiVersion": "[variables('APIVersion')]",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[variables('FESubnetNameSG')]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "displayName": "[variables('FESubnetNameSG')]"
+      },
       "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('VnetURI')]",
-          "contentVersion": "1.0.0.0"
+        "securityRules": [
+          {
+            "name": "rdp_rule",
+            "properties": {
+              "description": "Allow RDP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "web_rule",
+            "properties": {
+              "description": "Allow WEB",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "80",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "https_rule",
+            "properties": {
+              "description": "Allow https",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "apiVersion": "[variables('APIVersion')]",
+      "name": "[variables('BESubnetNameSG')]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "displayName": "[variables('BESubnetNameSG')]"
+      },
+      "properties": {
+        "securityRules": [
+          {
+            "name": "Allow_FE",
+            "properties": {
+              "description": "Allow FE Subnet SQL",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "1433",
+              "sourceAddressPrefix": "[parameters('FESubnetAddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Allow_FE_RDP",
+            "properties": {
+              "description": "Allow FE Subnet RDP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "[parameters('FESubnetAddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "rdp_rule",
+            "properties": {
+              "description": "Allow RDP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Block_FE",
+            "properties": {
+              "description": "Block App Subnet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[parameters('FESubnetAddressPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Deny",
+              "priority": 150,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Block_Internet",
+            "properties": {
+              "description": "Block Internet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "Internet",
+              "access": "Allow",
+              "priority": 200,
+              "direction": "Outbound"
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "name": "[parameters('virtualNetworkName')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[parameters('location')]",
+      "apiVersion": "[variables('APIVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkSecurityGroups/', variables('FESubnetNameSG'))]",
+        "[concat('Microsoft.Network/networkSecurityGroups/', variables('BESubnetNameSG'))]"
+      ],
+      "tags": {
+        "displayName": "[parameters('virtualNetworkName')]"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('vnetAddressPrefix')]"
+          ]
         },
-        "parameters": {
-          "virtualNetworkExistingRGName": {
-            "value": "[parameters('virtualNetworkExistingRGName')]"
+        "subnets": [
+          {
+            "name": "[parameters('FESubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('FESubnetAddressPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('FESubnetNameSG'))]"
+              }
+            }
           },
-          "vnetAddressPrefix": {
-            "value": "[parameters('vnetAddressPrefix')]"
-          },
-          "FESubnetName": {
-            "value": "[parameters('FESubnetName')]"
-          },
-          "FESubnetAddressPrefix": {
-            "value": "[parameters('FESubnetAddressPrefix')]"
-          },
-          "FESubnetStartAddress": {
-            "value": "[parameters('FESubnetStartAddress')]"
-          },
-          "BESubnetName": {
-            "value": "[parameters('BESubnetName')]"
-          },
-          "BESubnetAddressPrefix": {
-            "value": "[parameters('BESubnetAddressPrefix')]"
-          },
-          "BESubnetStartAddress": {
-            "value": "[parameters('BESubnetStartAddress')]"
-          },
-          "virtualNetworkName": {
-            "value": "[parameters('virtualNetworkName')]"
-          },
-          "apiver": {
-            "value": "[variables('APIVersion')]"
-          },
-          "location": {
-            "value": "[parameters('location')]"
+          {
+            "name": "[parameters('BESubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('BESubnetAddressPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('BESubnetNameSG'))]"
+              }
+            }
           }
 
-        }
+        ]
       }
     },
 
@@ -310,6 +429,9 @@
       "name": "deployStorage",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "[variables('templateAPIVersion')]",
+      "dependsOn": [
+        "[variables('vnetID')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -378,7 +500,7 @@
             "value": "[variables('FEStorageAccountContainerName')]"
           },
           "FESubnetRef": {
-            "value": "[reference('deployVnet').outputs.FESubnetRef.value]"
+            "value": "[variables('FESubnet')]"
           },
           "apiver": {
             "value": "[variables('templateAPIVersion')]"
@@ -437,7 +559,7 @@
             "value": "[variables('FEStorageAccountContainerName')]"
           },
           "FESubnetRef": {
-            "value": "[reference('deployVnet').outputs.FESubnetRef.value]"
+            "value": "[variables('FESubnet')]"
           },
           "count": {
             "value": "[parameters('count')]"
@@ -463,6 +585,9 @@
       "name": "SQLdeployStorage",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "[variables('templateAPIVersion')]",
+      "dependsOn": [
+        "[variables('vnetID')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -515,7 +640,7 @@
             "value": "[variables('SQLImageOffer')]"
           },
           "SubnetRef": {
-            "value": "[reference('deployVnet').outputs.BESubnetRef.value]"
+            "value": "[variables('FESubnet')]"
           },
           "StorageACCName": {
             "value": "[parameters('SQLStorageACCName')]"
