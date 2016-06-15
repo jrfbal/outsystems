@@ -155,9 +155,6 @@
 
   ],
   "outputs": {
-    "fqdn": {
-      "value": "[resourceId('Microsoft.Network/publicIPAddresses', concat('sqlpublicip',toLower(parameters('SQLName')))).dnsSettings.fqdn]",
-      "type": "string"
-    }
+
   }
 }
