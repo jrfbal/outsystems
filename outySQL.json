@@ -85,7 +85,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "variables('publicIPAddressID')"
+        "[variables('publicIPAddressID')]"
       ],
       "apiVersion": "[parameters('NETapiver')]",
       "tags": {
