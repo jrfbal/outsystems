@@ -56,7 +56,7 @@
     },
     "dnsNameforLBIP": {
       "type": "string",
-      "defaultValue": "uniqueDnsNameforLBIP",
+      "defaultValue": "change-to-be-unique",
       "metadata": {
         "description": "Unique DNS name"
       }

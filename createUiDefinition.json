@@ -456,6 +456,7 @@
         "BESubnetName": "[steps('VNETSetup').vnetSpec.subnets.subnet2.name]",
         "BESubnetAddressPrefix": "[steps('VNETSetup').vnetSpec.subnets.subnet2.addressPrefix]",
         "StorageNewOrExisting": "[steps('FESetup').storageAccount2.newOrExisting]",
+        "storageAccountExistingRG": "[steps('FESetup').storageAccount2.resourceGroup]",
         "StorageACCName": "[steps('FESetup').storageAccount2.name]",
         "StorageACCType": "[steps('FESetup').storageAccount2.type]",
         "CreateLBchoosebox": "[steps('FESetup').deployLB]",
@@ -464,6 +465,7 @@
         "CreateSQLchoosebox": "[steps('SQLSetup').deploySQL]",
         "SQLWindowsOSVersion": "[steps('SQLSetup').SQL_SKU]",
         "SQLStorageNewOrExisting": "[steps('SQLSetup').storageAccount.newOrExisting]",
+        "SQLStorageExistingRG": "[steps('SQLSetup').storageAccount.resourceGroup]",
         "SQLStorageACCName": "[steps('SQLSetup').storageAccount.name]",
         "SQLStorageACCType": "[steps('SQLSetup').storageAccount.type]",
         "location": "[location()]"
