@@ -90,7 +90,7 @@
     {
       "apiVersion": "[parameters('NETapiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "variables('publicIPname')",
+      "name": "[concat('dcspublicip',toLower(parameters('CONTName')))]",
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic"
@@ -105,7 +105,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[variables('publicIPAddressID')]"
+        "[resourceId('Microsoft.Network/publicIPAddresses', concat('dcspublicip',toLower(parameters('CONTName'))))]"
       ],
       "apiVersion": "[parameters('NETapiver')]",
       "tags": {
@@ -121,7 +121,7 @@
                 "id": "[parameters('FESubnetRef')]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPname'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('dcspublicip',toLower(parameters('CONTName'))))]"
               }
             }
           }
