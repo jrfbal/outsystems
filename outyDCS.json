@@ -82,13 +82,15 @@
 
   },
   "variables": {
+    "publicIPname": "[concat('dcspublicip',toLower(parameters('CONTName')))]",
+    "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPname'))]"
 
   },
   "resources": [
     {
       "apiVersion": "[parameters('NETapiver')]",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat('dcspublicip',toLower(parameters('CONTName')))]",
+      "name": "variables('publicIPname')",
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic"
@@ -103,7 +105,7 @@
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', concat('dcspublicip',toLower(parameters('CONTName'))))]"
+        "[variables('publicIPAddressID')]"
       ],
       "apiVersion": "[parameters('NETapiver')]",
       "tags": {
@@ -119,7 +121,7 @@
                 "id": "[parameters('FESubnetRef')]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('dcspublicip',toLower(parameters('CONTName'))))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPname'))]"
               }
             }
           }
@@ -181,5 +183,9 @@
 
   ],
   "outputs": {
+    "fqdn": {
+      "value": "[variables('publicIPAddressID').dnsSettings.fqdn]",
+      "type": "string"
+    }
   }
 }

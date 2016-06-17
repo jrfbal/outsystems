@@ -56,7 +56,7 @@
     },
     "dnsNameforLBIP": {
       "type": "string",
-      "defaultValue": "change-to-be-unique",
+      "defaultValue": "uniqueDnsNameforLBIP",
       "metadata": {
         "description": "Unique DNS name"
       }
@@ -304,10 +304,11 @@
       }
     }
   ],
-  "outputs": {
-    "fqdn": {
-      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPname'))).dnsSettings.fqdn]",
-      "type": "string"
+    "outputs": {
+      "fqdn": {
+        "value": "[variables('publicIPAddressID').dnsSettings.fqdn]",
+        "type": "string"
+      }
+	
     }
-  }
 }
