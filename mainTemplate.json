@@ -106,17 +106,7 @@
         "description": "Storage Account Unique name"
       }
     },
-    "SQLStorageNewOrExisting": {
-      "type": "string",
-      "defaultValue": "new",
-      "allowedValues": [
-        "new",
-        "existing"
-      ],
-      "metadata": {
-        "description": "Identifies whether to use new or existing Virtual Network"
-      }
-    },
+
     "storageAccountExistingRG": {
       "type": "string",
       "defaultValue": "",
@@ -124,16 +114,7 @@
         "description": "Front-end storage RG"
       }
     },
-    "SQLStorageACCType": {
-      "type": "string",
-      "defaultValue": "Standard_LRS"
-    },
-    "SQLStorageACCName": {
-      "type": "string",
-      "metadata": {
-        "description": "Storage Account Unique name"
-      }
-    },
+
     "CreateLBchoosebox": {
       "type": "string",
       "defaultValue": "yLB",
@@ -218,6 +199,28 @@
       "defaultValue": "SQL",
       "metadata": {
         "description": "SQL server hostname"
+      }
+    },
+
+    "SQLStorageACCType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS"
+    },
+    "SQLStorageACCName": {
+      "type": "string",
+      "metadata": {
+        "description": "Storage Account Unique name"
+      }
+    },
+    "SQLStorageNewOrExisting": {
+      "type": "string",
+      "defaultValue": "new",
+      "allowedValues": [
+        "new",
+        "existing"
+      ],
+      "metadata": {
+        "description": "Identifies whether to use new or existing Virtual Network"
       }
     },
 
