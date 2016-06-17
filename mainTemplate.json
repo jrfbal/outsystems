@@ -80,6 +80,14 @@
         "description": "Identifies whether to use new or existing storage account"
       }
     },
+
+    "storageAccountExistingRG": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Front-end storage RG"
+      }
+    },
     "StorageACCType": {
       "type": "string",
       "defaultValue": "Standard_LRS"
@@ -99,6 +107,13 @@
       ],
       "metadata": {
         "description": "Identifies whether to use new or existing SQL storage account"
+      }
+    },
+    "SQLStorageExistingRG": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Back-end storage RG"
       }
     },
     "SQLStorageACCType": {
@@ -223,8 +238,6 @@
   },
   "variables": {
     "URIbase": "[concat(parameters('baseUrl'),'/')]",
-    "StorageURI": "[concat(variables('URIbase'),'outstr', parameters('StorageNewOrExisting'), '.json')]",
-    "SQLStorageURI": "[concat(variables('URIbase'),'outstr', parameters('CreateSQLchoosebox'), parameters('SQLStorageNewOrExisting'), '.json')]",
     "DCSURI": "[concat(variables('URIbase'),'out', parameters('CreateDCSchoosebox'), '.json')]",
     "FEURI": "[concat(variables('URIbase'),'outFE', parameters('CreateLBchoosebox'), '.json')]",
     "SQLURI": "[concat(variables('URIbase'),'out', parameters('CreateSQLchoosebox'), '.json')]",
@@ -427,40 +440,25 @@
 
     {
       "name": "deployStorage",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "[variables('templateAPIVersion')]",
-      "dependsOn": [
-        "[variables('vnetID')]"
-      ],
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[parameters('location')]",
+      "apiVersion": "[variables('APIVersion')]",
+      "dependsOn": [ "[variables('vnetID')]" ],
+      "tags": {
+        "displayName": "[parameters('StorageACCName')]"
+      },
       "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('StorageURI')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "StorageACCType": {
-            "value": "[parameters('StorageACCType')]"
-          },
-          "StorageACCName": {
-            "value": "[parameters('StorageACCName')]"
-          },
-          "apiver": {
-            "value": "[variables('APIVersion')]"
-          },
-          "location": {
-            "value": "[parameters('location')]"
-          }
-        }
+        "accountType": "[parameters('StorageACCType')]"
       }
     },
+
 
     {
       "name": "createDCS",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "[variables('templateAPIVersion')]",
       "dependsOn": [
-        "[concat('Microsoft.Resources/deployments/', 'deployStorage')]"
+        "[concat('Microsoft.Storage/storageAccounts/', 'deployStorage')]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -581,40 +579,26 @@
         }
       }
     },
+
     {
       "name": "SQLdeployStorage",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "[variables('templateAPIVersion')]",
-      "dependsOn": [
-        "[variables('vnetID')]"
-      ],
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[parameters('location')]",
+      "apiVersion": "[variables('APIVersion')]",
+      "dependsOn": [ "[variables('vnetID')]" ],
+      "tags": {
+        "displayName": "[parameters('SQLStorageACCName')]"
+      },
       "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('SQLStorageURI')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "StorageACCType": {
-            "value": "[parameters('SQLStorageACCType')]"
-          },
-          "StorageACCName": {
-            "value": "[parameters('SQLStorageACCName')]"
-          },
-          "apiver": {
-            "value": "[variables('APIVersion')]"
-          },
-          "location": {
-            "value": "[parameters('location')]"
-          }
-        }
+        "accountType": "[parameters('SQLStorageACCType')]"
       }
     },
+
     {
       "name": "createSQL",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
-        "[concat('Microsoft.Resources/deployments/', 'SQLdeployStorage')]"
+        "[concat('Microsoft.Storage/storageAccounts/', 'SQLdeployStorage')]"
       ],
       "apiVersion": "[variables('templateAPIVersion')]",
       "properties": {
