@@ -271,7 +271,7 @@
     "templateAPIVersion": "2015-11-01",
     "APIVersion": "2015-06-15",
     "FEWindowsOSVersion": "baseline",
-    "SQLImageOffer": "SQL2014-WS2012R2"
+    "SQLImageOffer": "SQL2014SP1-WS2012R2"
   },
   "resources": [
     {
